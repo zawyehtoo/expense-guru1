@@ -80,7 +80,7 @@ export default function SignUpForm({ className = "w-full" }: { className?: strin
                         <Label className="text-center w-full flex justify-center">
                             Already have an account?{" "}
                             <Link
-                                href="dashboard/home"
+                                href="/login"
                                 className="text-primary ml-2"
                             >
                                 Login
