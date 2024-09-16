@@ -7,7 +7,7 @@ interface InputProps<T> extends React.InputHTMLAttributes<HTMLInputElement> {
     name: string;
     options?: T[];
     isMoneyInput?: boolean;
-    as?: React.ElementType;
+    as: React.ElementType;
     fetchMore?: () => void;
     hasMore?: boolean;
     dataLength?: number;
@@ -16,7 +16,7 @@ interface InputProps<T> extends React.InputHTMLAttributes<HTMLInputElement> {
 }
  
 const FormField = <T extends Record<string,any>>({
-  as: InputComponent= "input",
+  as: InputComponent,
   name,
   className,
   options,

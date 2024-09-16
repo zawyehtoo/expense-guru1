@@ -3,6 +3,8 @@ import { Form, Formik } from "formik"
 import { FormField } from "./formField";
 import { Button } from "../ui/button";
 import Link from "next/link";
+import { Input } from "../ui/input";
+
 import {
     SignUpUserType,
     signUpValidationFormSchema,
@@ -35,6 +37,7 @@ export default function SignUpForm({ className = "w-full" }: { className?: strin
                                 id="username"
                                 placeholder="Scott.."
                                 type="text"
+                                as={Input}
                             />
                         </div>
                         <div className="space-y-2">
@@ -44,6 +47,7 @@ export default function SignUpForm({ className = "w-full" }: { className?: strin
                                 id="email"
                                 placeholder="name@gmail.com"
                                 type="email"
+                                as={Input}
                             />
                         </div>
                         <div className="space-y-2">
@@ -53,6 +57,7 @@ export default function SignUpForm({ className = "w-full" }: { className?: strin
                                 id="password"
                                 required
                                 type="password"
+                                as={Input}
                             />
                         </div>
                         <div className="space-y-2">
@@ -62,6 +67,7 @@ export default function SignUpForm({ className = "w-full" }: { className?: strin
                                 id="confirmPassword"
                                 required
                                 type="password"
+                                as={Input}
                             />
                         </div>
                         <Button
