@@ -1,7 +1,8 @@
+import Welcome from "@/components/mobile/welcome/welcome";
 import React from "react";
 
 export const WelcomePage = () => {
-  return <div className="text-center">WelcomePage</div>;
+  return <Welcome></Welcome>;
 };
 
 export default WelcomePage;
