@@ -5,7 +5,6 @@ import BG from "../../../../public/welcome-bg.png";
 import Person from "../../../../public/welcome-man.png";
 import Image from "next/image";
 import Link from "next/link";
-import Button from "@/components/common/button";
 import { Route } from "@/enums/route";
 import { getMobileRoute } from "@/lib/route";
 
@@ -27,14 +26,14 @@ export const Welcome = () => {
           <h2>Save Money</h2>
         </div>
         <div className="flex justify-center items-center">
-          <Button>
+          <button className="rounded-full cursor-pointer px-[100px] py-3 bg-[#488d88] text-white font-bold">
             <Link href={getMobileRoute(Route.SIGNUP)}>Get Started</Link>
-          </Button>
+          </button>
         </div>
-        <div className="flex justify-center items-center">
+        <div className="flex justify-center items-center font-bold">
           <p className="me-2">Already have an account? </p>
           <span>
-            <Link href={getMobileRoute(Route.LOGIN)} className="text-primary text-[#488d88]">
+            <Link href={getMobileRoute(Route.LOGIN)} className="text-[#488d88]">
               Login
             </Link>
           </span>
