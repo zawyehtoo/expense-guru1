@@ -1,5 +1,6 @@
 import React from 'react'
 import { API_ROUTE, MOBILE_HOME_PAGE, TEST_MOBILE_REGEX } from '@/constants/route'
+import { Route } from '@/enums/route';
 
 export const isAPIRoute = (path?: string) => {
   const currentPath = path || (typeof window !== 'undefined' && window.location.pathname);
@@ -19,3 +20,11 @@ export const isMobile = (providedUserAgent?: string): boolean => {
 
   return TEST_MOBILE_REGEX.test(userAgent);
 };
+
+export const getMobileRoute = (path: Route) => {
+  return `${Route.MOBILE}${path}`
+}
+
+export const getRelevantRoute = (path: Route) => {
+  return isMobile() ?  getMobileRoute(path) : path;
+}
