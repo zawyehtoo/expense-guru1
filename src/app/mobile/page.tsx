@@ -1,9 +1,12 @@
-import Landing from "@/components/mobile/landing";
+import React from 'react'
+import Landing from '@/components/mobile/landing'
 
-export default function Home() {
+const Home = () => {
   return (
     <div>
-      <Landing />
+      <Landing></Landing>
     </div>
-  );
+  )
 }
+
+export default Home

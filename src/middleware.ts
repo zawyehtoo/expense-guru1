@@ -9,8 +9,13 @@ const redirectTo = (url: string, req: NextRequest) => {
 };
 
 export default async function middleware(req: NextRequest) {
-  const userAgent = req.headers.get("user-agent") ?? "";
   const {pathname} = new URL(req.url);
+
+  if (pathname.startsWith("/_next")) {
+    return NextResponse.next();
+  }
+
+  const userAgent = req.headers.get("user-agent") ?? "";
   const isMobileDevice = isMobile(userAgent);
 
   if (!isAPIRoute(pathname)) {
