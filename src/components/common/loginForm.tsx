@@ -66,7 +66,7 @@ const LoginForm = ({ className = "w-full" }: { className?: string }) => {
               Do not have an account?
               <Link
                 href="/signup"
-                className="text-primary ml-2"
+                className="ml-2 text-[#488d88]"
               >
                 Signup
               </Link>
