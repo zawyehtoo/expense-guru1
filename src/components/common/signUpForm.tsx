@@ -10,6 +10,8 @@ import {
     signUpValidationFormSchema,
 } from "@/validations/signup";
 import { toFormikValidationSchema } from "zod-formik-adapter";
+import { getRelevantRoute } from "@/lib/route";
+import { Route } from "@/enums/route";
 
 
 export default function SignUpForm({ className = "w-full" }: { className?: string }) {
@@ -80,7 +82,7 @@ export default function SignUpForm({ className = "w-full" }: { className?: strin
                         <Label className="text-center w-full flex justify-center">
                             Already have an account?{" "}
                             <Link
-                                href="/login"
+                                href={getRelevantRoute(Route.LOGIN)}
                                 className="text-primary ml-2"
                             >
                                 Login
