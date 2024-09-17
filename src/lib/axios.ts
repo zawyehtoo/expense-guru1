@@ -1,10 +1,12 @@
+import { BACKEND_API } from "@/constants/route";
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:8000/api/v1",
+  baseURL: BACKEND_API,
   headers: {
     "Content-Type": "application/json",
   },
+  withCredentials: true,
 });
 
 export default axiosInstance;
