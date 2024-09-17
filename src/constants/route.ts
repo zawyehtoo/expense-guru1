@@ -22,6 +22,7 @@ export const DESKTOP_HOME_PAGE = "/";
 export const API_ROUTE = "/api";
 export const TEST_MOBILE_REGEX =
   /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+export const BACKEND_API = "http://localhost:8000/api/v1";
 
 export const MOBILE_FOOTER = [
   {
