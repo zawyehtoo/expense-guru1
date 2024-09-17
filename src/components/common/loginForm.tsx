@@ -1,24 +1,23 @@
 "use client";
 import { FormField } from "@/components/common/formField";
-// import { Loading } from "@/components/common/loading";
+import { Loading } from "@/components/common/loading";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Route } from "@/enums/route";
-// import { useLogin } from "@/hooks/useLogin";
+import { useLogin } from "@/hooks/useLogin";
 import { SignInType, signInValidation } from "@/validations/sign-in";
 import { Form, Formik } from "formik";
 import Link from "next/link";
 import { toFormikValidationSchema } from "zod-formik-adapter";
-// import { getRelevantRoute } from "@/utils/frontend/route";
+import { getRelevantRoute } from "@/lib/route";
 
 const LoginForm = ({ className = "w-full" }: { className?: string }) => {
-//   const { login, loading } = useLogin();
+  const { login, loading } = useLogin();
 
   const handleSubmit = async (user: SignInType) => {
-    // await login(user);
-    console.log(user)
+    await login(user);
   };
 
   return (
@@ -56,17 +55,16 @@ const LoginForm = ({ className = "w-full" }: { className?: string }) => {
               className="w-full"
               type="submit"
               variant="gooeyLeft"
-            //   disabled={loading}
+              disabled={loading}
             >
-                Login
-              {/* {loading ? <Loading /> : "Login"} */}
+              {loading ? <Loading /> : "Login"}
             </Button>
 
             <Label className="text-center w-full flex justify-center">
               Do not have an account?
               <Link
-                href="/signup"
-                className="ml-2 text-[#488d88]"
+                href={getRelevantRoute(Route.SIGNUP)}
+                className="text-primary ml-2"
               >
                 Signup
               </Link>
