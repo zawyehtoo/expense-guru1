@@ -7,6 +7,7 @@ import { getRelevantRoute } from "@/lib/route";
 import { Route } from "@/enums/route";
 import { useRouter } from "next/navigation";
 import { AuthContext } from "@/components/context/AuthContext";
+import { Sign } from "crypto";
 
 export interface User {
   username: string;
