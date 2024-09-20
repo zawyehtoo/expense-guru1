@@ -65,3 +65,7 @@
     @apply bg-background text-foreground;
   }
 }
+
+.poppins{
+  font-family: var(--font-poppins);
+}
