@@ -53,6 +53,12 @@ export function useLogin() {
       return null;
     }
   };
+  
+  const removeLoggedInUserData = ()=>{
+    setIsLoggedIn(false);
+    setAuthUser({username:"",email:""});
+    localStorage.removeItem("userData")
+  }
 
   const login = async (user: SignInType) => {
     try {
@@ -79,6 +85,7 @@ export function useLogin() {
   return {
     login,
     getLoggedInUserData,
+    removeLoggedInUserData,
     authUser,
     isLoggedIn,
     loading,
