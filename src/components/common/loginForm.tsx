@@ -21,7 +21,8 @@ const LoginForm = ({ className = "w-full" }: { className?: string }) => {
   };
 
   return (
-    <Formik
+    <>
+      <Formik
       initialValues={{
         email: "",
         password: "",
@@ -59,7 +60,7 @@ const LoginForm = ({ className = "w-full" }: { className?: string }) => {
             >
               {loading ? <Loading /> : "Login"}
             </Button>
-
+      
             <Label className="text-center w-full flex justify-center">
               Do not have an account?
               <Link
@@ -73,6 +74,14 @@ const LoginForm = ({ className = "w-full" }: { className?: string }) => {
         </CardContent>
       </Form>
     </Formik>
+    <button
+        onClick={() => {
+          window.location.href = "http://localhost:8000/api/v1/auth/google";
+        }}
+      >
+        Sign in with Google
+      </button>
+    </>
   );
 };
 
