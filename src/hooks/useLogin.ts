@@ -25,7 +25,7 @@ export function useLogin() {
     try {
       const {
         data: { data },
-      } = await axiosInstance.get("users/auth/me");
+      } = await axiosInstance.get("/users/auth/me");
       const userData = {
         username: data.username,
         email: data.email,
@@ -56,8 +56,7 @@ export function useLogin() {
   
   const removeLoggedInUserData = ()=>{
     setIsLoggedIn(false);
-    setAuthUser({username:"",email:""});
-    localStorage.removeItem("userData")
+    localStorage.removeItem("userData");
   }
 
   const login = async (user: SignInType) => {
@@ -86,6 +85,7 @@ export function useLogin() {
     login,
     getLoggedInUserData,
     removeLoggedInUserData,
+    setLoggedInUserData,
     authUser,
     isLoggedIn,
     loading,
