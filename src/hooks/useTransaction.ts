@@ -12,19 +12,21 @@ import { sanitizeMoney } from "@/utils/frontend/money";
 export const useTransaction = () => {
     const { successToast, errorToast } = useToastHook();
     const [transactions, setTransactions] = useState<Transaction[]>([]);
-    const [isFetching, setIsFetching] = useState(true);
+    const [isFetching, setIsFetching] = useState<boolean>();
     const { currentParam } = useTab();
 
     const fetchTransactions = useCallback(async () => {
+        setIsFetching(true);
         try {
-            const response = await axiosInstance.get("/transaction");
+            console.log(currentParam)
+            const response = await axiosInstance.get(`/transaction?tab=${currentParam}`);
             setTransactions(response.data.data);
         } catch (error: any) {
             return errorToast(error.response.data.message || error.response.data.error)
         } finally {
             setIsFetching(false);
         }
-    }, [errorToast])
+    }, [currentParam, errorToast])
 
     const createTransaction = useCallback(async (transaction: TransactionType) => {
         try {
@@ -43,8 +45,8 @@ export const useTransaction = () => {
     }, [errorToast, successToast, currentParam])
 
     useEffect(() => {
-        fetchTransactions();
-    }, []);
+        fetchTransactions();    
+    }, [currentParam]);
 
     return {
         transactions,

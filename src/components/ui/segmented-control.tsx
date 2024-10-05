@@ -1,26 +1,32 @@
 "use client";
-import React, { useState } from "react";
+import { useTab } from "@/hooks/useTab";
+import React, { useEffect, useState } from "react";
 
 interface Props {
   data: string[];
-  currentTab: string;
+  defaultTab: string;
   onSelectionChange: (item: string) => void;
 }
 
 export default function SegmentedControl({
   data,
-  currentTab,
+  defaultTab,
   onSelectionChange,
 }: Props) {
-  const [selected, setSelected] = useState(currentTab || data[0]);
+  const { handleTabChange } = useTab();
+  const [selected, setSelected] = useState(defaultTab);
   const handleOnClick = (item: string) => {
     setSelected(item);
     onSelectionChange(item);
   };
 
+  useEffect(() => {
+    handleTabChange(selected);
+  }, [selected]);
+
   return (
     <div className="py-4 w-full font-semibold">
-      <div className="inline-flex w-full rounded-full bg-gray-100">
+      <div className="inline-flex w-full rounded-full bg-gray-200">
         {data.map((item, index) => (
           <button
             key={index}
