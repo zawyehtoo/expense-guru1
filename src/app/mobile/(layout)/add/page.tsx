@@ -42,7 +42,7 @@ export default function Add() {
 const TransactionForm = () => {
   const { createTransaction } = useTransaction();
   const { categories, fetchMore, hasMore } = useCategory();
-  const { handleTabChange, currentParam } = useTab();
+  const { handleTabChange, currentTabParam } = useTab();
 
   const [initialValue, setInitialValue] = useState<TransactionType>({
     categoryId: "",
@@ -56,7 +56,7 @@ const TransactionForm = () => {
   };
 
   const getButtonText = () => {
-    return currentParam === TransactionTab.EXPENSE
+    return currentTabParam === TransactionTab.EXPENSE
       ? TransactionTab.EXPENSE
       : TransactionTab.INCOME;
   };
@@ -65,7 +65,7 @@ const TransactionForm = () => {
     <>
       <SegmentedControl
         data={[TransactionTab.INCOME, TransactionTab.EXPENSE]}
-        defaultTab={currentParam !== TransactionTab.ALL ? currentParam : TransactionTab.INCOME}
+        defaultTab={currentTabParam !== TransactionTab.ALL ? currentTabParam : TransactionTab.INCOME}
         onSelectionChange={handleTabChange}
       />
       <Formik
