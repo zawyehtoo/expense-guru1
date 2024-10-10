@@ -36,6 +36,7 @@ export const useTransaction = () => {
                 categoryId: transaction.categoryId,
                 amount: sanitizeMoney(transaction.amount),
                 type: currentTabParam?.toLowerCase(),
+                note: transaction.note,
             };
             const response = await axiosInstance.post("/transaction/create", body)
             if (response.data.status === HttpStatus.CREATED) {
