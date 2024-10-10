@@ -90,7 +90,7 @@ const TransactionDetail = ({ params: { id } }: { params: { id: string } }) => {
                           <p className={`${showFullText ? "whitespace-normal" : "truncate"} text-[12px] w-[140px]`} style={{wordWrap: "break-word"}}>
                             {transaction.note}
                           </p>
-                          {transaction.note.length > 50 && (
+                          {transaction.note.length > 20 && (
                             <p onClick={toggleShowFullText} className="text-blue-500 text-[10px] cursor-pointer">{showFullText ? "Show less" : "Show more"}</p>    
                           )}  
                         </div>
