@@ -21,7 +21,7 @@ const TransactionDetail = ({ params: { id } }: { params: { id: string } }) => {
   const toggleShowFullText = () => {
     setshowFullText((prev) => !prev);
   };
-
+  
   useEffect(() => {
     fetchTransactionDetail(id);
   }, [id]);
