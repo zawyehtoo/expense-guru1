@@ -10,9 +10,6 @@ export const createValidation = z.object({
             (val) => Number(val.replace(/,/g, "")) >= 1,
             "Amount must be at leat 1."
         ),
-    note: z.string().min(5, { message: "Note must be at least 5 characters long" })
-        .max(200, { message: "Note can't exceed 200 characters" })
-        .optional().or(z.literal(""))
 }).required();
 
 export type TransactionType = z.infer<typeof createValidation>;

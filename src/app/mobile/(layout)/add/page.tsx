@@ -27,9 +27,9 @@ import { useTab } from "@/hooks/useTab";
 export default function Add() {
   return (
     <div className="pt-10 flex flex-col items-center justify-center">
-      <div className="absolute top-0 left-0 h-dvh">
+      <div className="absolute top-0 left-0 h-auto">
         <Image src={Bg} alt="background image" className="w-screen" />
-        <div className="relative bottom-[150px] w-[90%] py-5 px-3 mx-auto shadow-md rounded-3xl bg-white">
+        <div className="relative bottom-[100px] w-[90%] py-5 px-3 mx-auto shadow-md rounded-3xl bg-white">
           <WithSuspense>
             <TransactionForm />
           </WithSuspense>
@@ -47,16 +47,11 @@ const TransactionForm = () => {
   const [initialValue, setInitialValue] = useState<TransactionType>({
     categoryId: "",
     amount: "",
-    note: undefined
   });
 
   const handleSubmit = async (values: TransactionType, { resetForm }: FormikHelpers<TransactionType>) => {
     await createTransaction(values);
-    let initial_value: TransactionType = { categoryId: "", amount: "", note: undefined };
-    if (values.note) {
-      initial_value = { ...initial_value, note: ""}
-    }
-    setInitialValue(initial_value);
+    setInitialValue({ categoryId: "", amount: "" });
     resetForm();
   };
 
@@ -70,11 +65,7 @@ const TransactionForm = () => {
     <>
       <SegmentedControl
         data={[TransactionTab.INCOME, TransactionTab.EXPENSE]}
-        defaultTab={
-          currentTabParam !== TransactionTab.ALL
-            ? currentTabParam
-            : TransactionTab.INCOME
-        }
+        defaultTab={currentTabParam !== TransactionTab.ALL ? currentTabParam : TransactionTab.INCOME}
         onSelectionChange={handleTabChange}
       />
       <Formik
@@ -86,7 +77,7 @@ const TransactionForm = () => {
         <Form>
           <div className="px-4 mt-4 w-full flex flex-col gap-3">
             <span className="flex justify-between items-center">
-              <Label htmlFor="categoryId">
+              <Label htmlFor="category">
                 <span>Category</span>
               </Label>
               <Link
@@ -106,7 +97,7 @@ const TransactionForm = () => {
             />
           </div>
           <div className="px-4 mt-4 w-full flex flex-col gap-3">
-            <Label htmlFor="amount">
+            <Label htmlFor="categoryId">
               <span>Amount</span>
             </Label>
             <FormField
@@ -116,18 +107,6 @@ const TransactionForm = () => {
               id="amount"
               isMoneyInput={true}
               defaultValue={1000}
-            />
-          </div>
-          <div className="px-4 mt-4 w-full flex flex-col gap-3">
-            <Label htmlFor="note">
-              <span>Note</span> (Optional)
-            </Label>
-            <FormField
-              as={Input}
-              name="note"
-              type="text"
-              id="note"
-              placeholder="Enter a note (optional)"
             />
           </div>
           <div className="px-4 mt-4 w-full flex flex-col gap-3">

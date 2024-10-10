@@ -11,7 +11,6 @@ interface Transaction {
     type: string;
     amount: number;
     categoryId: Category;
-    note: string,
     createdAt: string;
     updatedAt: string;
 }
@@ -26,7 +25,6 @@ export const useTransactionDetail = () => {
             categoryId: {
                 name: ""
             },
-            note: "",
             createdAt: "",
             updatedAt: ""
         }
