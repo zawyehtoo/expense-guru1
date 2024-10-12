@@ -1,6 +1,7 @@
 "use client"
 import { TransactionForm } from "@/app/mobile/(layout)/add/page";
 import { DataTable } from "@/components/common/data-table";
+import TransactionDialogBox from "@/components/desktop/transactions/transactionDialogBox";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -25,6 +26,9 @@ export type Transaction = {
 export default function TransactionPage() {
     const { transactions, isFetching } = useTransaction();
     const [typeFilter, setTypeFilter] = useState<string>('');
+
+    const [currentTransaction, setCurrentTransaction] = useState<Transaction | null>();
+    const [isTransactionDialogOpen, setIsTransactionDialogOpen] = useState<boolean>(false);
 
     const columns: ColumnDef<Transaction>[] = [
         {
@@ -129,14 +133,29 @@ export default function TransactionPage() {
             cell: ({ row }) => {
                 return <span>{dayjs(row.original.createdAt).format("MMMM D, YYYY")}</span>
             }
+        },
+        {
+            id: "Action",
+            header: "Action",
+            cell: ({ row }) => {
+                return <Button onClick={()=>openTransactionDialog(row.original)}>View</Button>
+            }
         }
     ]
 
+    const openTransactionDialog = (transaction:Transaction) => {
+        setCurrentTransaction(transaction);
+        setIsTransactionDialogOpen(true);
+    }
+    const transactionParams = { id: currentTransaction?._id || "" };
     return (
         <div className="h-full -z-10">
             <div className="w-full h-32 relative">
                 <div className="z-50 absolute p-5 w-full">
                     <h1 className="text-2xl font-semibold mb-5">Transactions</h1>
+                    {isTransactionDialogOpen && currentTransaction && (
+                        <TransactionDialogBox isOpen={isTransactionDialogOpen} setIsOpen={setIsTransactionDialogOpen} params={transactionParams}/>
+                    )}
                     <Link href="/transactions/create">
                         <Button>Add New Transaction</Button>
                     </Link>

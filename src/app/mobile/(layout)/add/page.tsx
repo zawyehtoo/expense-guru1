@@ -23,6 +23,7 @@ import { useState } from "react";
 import { toFormikValidationSchema } from "zod-formik-adapter";
 import SegmentedControl from "@/components/ui/segmented-control";
 import { useTab } from "@/hooks/useTab";
+import { isMobile } from "react-device-detect";
 
 export default function Add() {
   return (
@@ -41,7 +42,7 @@ export default function Add() {
 
 export const TransactionForm = ({
   className,
-  isDesktop = false,
+  isDesktop = !isMobile,
 }: {
   className?: string;
   isDesktop?: boolean;
@@ -109,7 +110,7 @@ export const TransactionForm = ({
         initialValues={initialValue}
         onSubmit={handleSubmit}
         enableReinitialize={true}
-        validationSchema={toFormikValidationSchema(createValidation(isDesktop))}
+        validationSchema={toFormikValidationSchema(createValidation)}
       >
         <Form>
           <div className="px-4 mt-4 w-full flex flex-col gap-3">

@@ -1,6 +1,7 @@
 import { z } from 'zod'
+import { isMobile } from 'react-device-detect';
 
-export const createValidation=(isDesktop:boolean) => z.object({
+export const createValidation = z.object({
     categoryId: z.string({ message: "Category must not be empty." }),
     amount: z.string({ message: "Amount must not be empty." })
         .refine((val) => /^[1-9][0-9,]*$/.test(val.replace(/,/g, "")), {
@@ -10,7 +11,7 @@ export const createValidation=(isDesktop:boolean) => z.object({
             (val) => Number(val.replace(/,/g, "")) >= 1,
             "Amount must be at leat 1."
     ),
-    type: isDesktop
+    type: !isMobile
         ? z.string({ message: "Type must not be empty." })
         : z.string().optional(),
     note: z.string().min(5, { message: "Note must be at least 5 characters long" })
@@ -18,4 +19,4 @@ export const createValidation=(isDesktop:boolean) => z.object({
         .optional().or(z.literal(""))
 });
 
-export type TransactionType = z.infer<ReturnType<typeof createValidation>>;
+export type TransactionType = z.infer<typeof createValidation>;
