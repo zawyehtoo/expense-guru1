@@ -110,7 +110,7 @@ export const TransactionForm = ({
         initialValues={initialValue}
         onSubmit={handleSubmit}
         enableReinitialize={true}
-        validationSchema={toFormikValidationSchema(createValidation)}
+        validationSchema={toFormikValidationSchema(createValidation(isDesktop))}
       >
         <Form>
           <div className="px-4 mt-4 w-full flex flex-col gap-3">
