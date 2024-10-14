@@ -34,10 +34,6 @@ const TransactionDetail = ({
     setshowFullText((prev) => !prev);
   };
 
-  useEffect(() => {
-    fetchTransactionDetail(id);
-  }, [id]);
-
   const getTransactionType = (type: string) => {
     return type === TransactionTab.INCOME.toString().toLowerCase()
       ? "text-primary"
@@ -50,8 +46,8 @@ const TransactionDetail = ({
 
   const handleEditTransaction = () => {
     setEditMode(true);
-    setNoteInput(transaction?.note || "")
-  }
+    setNoteInput(transaction?.note || "");
+  };
 
   const handleNoteChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setNoteInput(e.target.value);
@@ -62,7 +58,11 @@ const TransactionDetail = ({
     await updateTransaction({ note, id });
     setIsSaving(false);
     setEditMode(false);
-  }
+  };
+
+  useEffect(() => {
+    fetchTransactionDetail(id);
+  }, [id]);
 
   return (
     <div className="w-full h-full flex flex-col">
@@ -142,35 +142,8 @@ const TransactionDetail = ({
                       <div>Date</div>
                       <div>{formatDate(transaction.createdAt)}</div>
                     </div>
-                    {transaction.note && !isDesktop && (
-                        <div className={`${editMode ? "flex-col" : "flex-row"} flex justify-between items-start py-3` }>
-                        <div>Note</div>
-                        {editMode ? (
-                          <textarea className="text-sm text-gray-400 w-full p-2 border rounded" value={noteInput} onChange={handleNoteChange}/>
-                        ) : (
-                          <div className="flex flex-col text-right">
-                            <p
-                              className={`${
-                                showFullText ? "whitespace-normal" : "truncate"
-                              } text-[14px] w-[140px]`}
-                              style={{ wordWrap: "break-word" }}
-                            >
-                              {transaction.note}
-                            </p>
-                            {transaction.note.length > 20 && (
-                              <p
-                                onClick={toggleShowFullText}
-                                className="text-[#59BFBF] text-[11px] cursor-pointer"
-                              >
-                                {showFullText ? "Show less" : "Show more"}
-                              </p>
-                            )}
-                          </div>
-                        )}
-                      </div>
-                    )}
-                    {transaction.note && isDesktop && (
-                      <div className="flex flex-col gap-1 items-start py-3">
+                    {editMode || transaction.note ? (
+                      <div className="flex flex-col gap-1 items-start py-3 overflow-x-hidden">
                         <div>Note</div>
                         {editMode ? (
                           <textarea
@@ -180,11 +153,27 @@ const TransactionDetail = ({
                           />
                         ) : (
                           <div className="text-sm text-gray-400">
-                            {transaction.note}
+                            <p
+                              className={`${
+                                showFullText ? "whitespace-normal" : "truncate"
+                              } text-[14px]`}
+                              style={{ wordWrap: "break-word" }}
+                            >
+                              {transaction.note}
+                            </p>
+                            {transaction.note &&
+                              transaction.note.length > 20 && (
+                                <p
+                                  onClick={toggleShowFullText}
+                                  className="text-[#59BFBF] text-[11px] cursor-pointer"
+                                >
+                                  {showFullText ? "Show less" : "Show more"}
+                                </p>
+                              )}
                           </div>
                         )}
                       </div>
-                    )}
+                    ) : null}
                   </div>
                   <div className="px-4">
                     <hr />
@@ -207,15 +196,24 @@ const TransactionDetail = ({
                     ) : (
                       <Button onClick={() => handleClose()}>Close</Button>
                     )}
-                      {transaction.note && (
-                        <Button
-                          variant="outline"
-                          onClick={editMode ? () => handleSaveTransaction(noteInput, transaction._id) : handleEditTransaction}
-                          disabled={isSaving}
-                        >
-                          {isSaving ? "Saving..." : editMode ? "Save" : "Edit Note"}
-                        </Button>
-                    )}
+                    <Button
+                      variant="outline"
+                      onClick={
+                        editMode
+                          ? () =>
+                              handleSaveTransaction(noteInput, transaction._id)
+                          : handleEditTransaction
+                      }
+                      disabled={isSaving}
+                    >
+                      {isSaving
+                        ? "Saving..."
+                        : editMode
+                        ? "Save"
+                        : transaction.note
+                        ? "Edit Note"
+                        : "Add Note"}
+                    </Button>
                   </div>
                 </div>
               )}
