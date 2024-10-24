@@ -6,16 +6,22 @@ import axiosInstance from "@/lib/axios";
 import { HttpStatus } from "@/enums/httpStatus";
 import { getRelevantRoute } from "@/lib/route";
 import { Route } from "@/enums/route";
+import { useContext } from "react";
+import { AuthContext } from "@/components/context/AuthContext";
 
 export const useLogout =()=>{
     const {errorToast} =  useToastHook();
     const router = useRouter();
+    const { setAccessToken } = useContext(AuthContext);
     // const {removeLoggedInUserData} = useLogin();
 
     const logout =async()=>{
         try{
-            const {status} = await axiosInstance.get("/users/logout");
+            const { status } = await axiosInstance.get("/users/logout", {
+                withCredentials: true
+            });
             if(status === HttpStatus.CREATED){
+                setAccessToken(null);
                 // removeLoggedInUserData();
                 localStorage.removeItem("userData")
                 router.push(getRelevantRoute(Route.LOGIN))
