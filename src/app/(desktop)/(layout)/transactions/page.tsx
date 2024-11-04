@@ -21,6 +21,8 @@ import { formatMoney } from "@/utils/frontend/money";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
+import { useToastHook } from "@/hooks/useToastHook";
+
 export type Transaction = {
     _id: string,
     categoryId: { name: string } | null,
@@ -33,6 +35,7 @@ export type Transaction = {
 }
 
 export default function TransactionPage() {
+    const { errorToast, successToast } = useToastHook();
     const { transactions, isFetching } = useTransaction();
     const [typeFilter, setTypeFilter] = useState<string>('');
     const [selectedDateRange, setSelectedDateRange] = useState<DateRange | undefined>();
@@ -170,6 +173,7 @@ export default function TransactionPage() {
     }
     const transactionParams = { id: currentTransaction?._id || "" };
 
+
     const exportTransaction = async (format:string) => {
         const transactionMapper = (transaction: Transaction) => ({
             ID: transaction._id,
@@ -183,7 +187,9 @@ export default function TransactionPage() {
             exportData(filteredTransactions, 'csv', 'Transactions', transactionMapper)
         }else if(format === "xlsx"){
             exportData(filteredTransactions, 'xlsx', 'Transactions', transactionMapper)
+
         }
+
     }
     return (
         <div className="h-full -z-10">
@@ -201,8 +207,10 @@ export default function TransactionPage() {
                             <Button className="ms-2">Export</Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent>
-                            <DropdownMenuItem onClick={()=>exportTransaction('csv')}>CSV</DropdownMenuItem>
-                            <DropdownMenuItem onClick={()=>exportTransaction('xlsx')}>XLSX</DropdownMenuItem>                            
+
+                            <DropdownMenuItem onClick={() => exportTransaction('csv')}>CSV</DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => exportTransaction('xlsx')}>XLSX</DropdownMenuItem>
+
                         </DropdownMenuContent>
                     </DropdownMenu>
                     <DataTable
