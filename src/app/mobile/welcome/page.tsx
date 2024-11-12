@@ -1,7 +1,7 @@
 import Welcome from "@/components/mobile/welcome/welcome";
 import React from "react";
 
-export const WelcomePage = () => {
+const WelcomePage = () => {
   return <Welcome></Welcome>;
 };
 
