@@ -8,7 +8,7 @@ import Link from "next/link";
 import { Route } from "@/enums/route";
 import { getMobileRoute } from "@/lib/route";
 
-const Welcome = () => {
+export default function Welcome(){
   return (
     <div className="flex flex-col h-dvh space-y-5">
       <div className={`${styles.bg} flex justify-center items-center h-[65%]`}>
@@ -42,5 +42,3 @@ const Welcome = () => {
     </div>
   );
 };
-
-export default Welcome;
