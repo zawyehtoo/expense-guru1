@@ -62,7 +62,7 @@ const TransactionDetail = ({
 
   useEffect(() => {
     fetchTransactionDetail(id);
-  }, [id]);
+  }, [id,fetchTransactionDetail]);
 
   return (
     <div className="w-full h-full flex flex-col">

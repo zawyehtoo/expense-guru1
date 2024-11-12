@@ -33,7 +33,7 @@ const HomePage = () => {
 
   useEffect(() => {
     handleTabChange(selectedMonth, "month")
-  }, [selectedMonth])
+  }, [selectedMonth,handleTabChange])
 
   useEffect(() => {
     const handleResize = () => {
