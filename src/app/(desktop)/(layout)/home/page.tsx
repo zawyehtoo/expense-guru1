@@ -11,6 +11,7 @@ import { useWallet } from "@/hooks/useWallet";
 import { PieChartDonut } from "@/components/common/piechart";
 import { BarChartComponent } from "@/components/common/barchart";
 import { useTransaction } from "@/hooks/useTransaction";
+import WithSuspense from "@/components/common/withSuspense";
 
 const Page = () => {
   const { authUser } = useLogin();
@@ -72,12 +73,14 @@ const Page = () => {
         </div>
 
         <div className="flex flex-row gap-6 justify-between items-start mt-20 p-4">
-          <div className="w-[40%]">
+         <WithSuspense>
+         <div className="w-[40%]">
             <PieChartDonut />
           </div>
           <div className="w-[60%]">
             <BarChartComponent />
           </div>
+         </WithSuspense>
         </div>
       </div>
     </>

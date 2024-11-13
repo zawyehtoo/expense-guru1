@@ -1,4 +1,5 @@
 import { TransactionForm } from "@/components/common/transactionForm"
+import WithSuspense from "@/components/common/withSuspense"
 import Link from "next/link"
 
 export default function CreatePage(){
@@ -10,7 +11,9 @@ export default function CreatePage(){
                     <Link href="/transactions" className="text-gray-400">Transactions </Link>
                     <span className="text-primaryLight">/ Create</span>
                 </h1>
-                <TransactionForm/>
+                <WithSuspense>
+                    <TransactionForm/>
+                </WithSuspense>
             </div>
         </div>
     </div>
